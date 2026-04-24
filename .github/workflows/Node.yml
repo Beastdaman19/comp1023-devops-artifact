@@ -1,0 +1,27 @@
+name: Run Node
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run Node.js Script
+        run: node scripts/system-info.js
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+         name: system-info-artifact
+         path: scripts/system-info.js
